@@ -1,0 +1,438 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <link rel="shortcut icon" href="#" />
+    <!--<link rel="stylesheet" href="Libs/bootstrap/bootstrap.min.css" type="text/css" />-->
+    <script src="Libs/jquery-1.11.2.min.js" type="text/javascript"></script>
+    <title>管理员界面</title>
+    <style type="text/css">
+        #cha_title {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 15%;
+            height: 100%;
+            background-color: #778899;
+            color: white;
+            font-size: 16px;
+        }
+            #cha_title p {
+                width: 100%;
+                height: 50px;
+                text-align: center;
+                line-height: 50px;
+            }
+                #cha_title p:hover {
+                    background-color: #ADD8E6;
+                }
+        #cha_return {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            top: 10px;
+            right: 10px;
+            border-radius: 20px;
+            color: white;
+            font-size: 14px;
+            text-align: center;
+            line-height: 40px;
+            background-color: #5F9EA0;
+        }
+            #cha_return:hover {
+                background-color: #3C7B6E;
+            }
+        #chargeall {
+            position: absolute;
+            top: 10%;
+            right: 0;
+            width: 83%;
+            height: 90%;
+            padding-left: 1%;
+            padding-right: 1%;
+        }
+
+        .cha_table th {
+            line-height: 30px;
+            font-size: 16px;
+            border-bottom: 1px solid grey;
+            border-top: 1px solid grey;
+            text-align: center;
+        }
+        .cha_table td {
+            line-height: 30px;
+            font-size: 14px;
+            border-bottom: 1px solid lightgrey;
+        }
+
+        /*以下是一些重复的东西*/
+        #zhezhao {
+            position: absolute;
+            background-color: black;
+            border-radius: 10px;
+            opacity: 0.3;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+        #detail {
+            font-size: 14px;
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            top: 25%;
+            left: 25%;
+            border-radius: 5px;
+            background-color: white;
+            border: 1.5px solid black;
+            padding-left: 10px;
+            padding-right: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.25);
+        }
+        #detail_close {
+            text-decoration: none;
+            position: absolute;
+            top: 2px;
+            right: 12px;
+            cursor: pointer;
+        }
+            #detail_close:after {
+                content: "✖";
+            }
+        #detail_hr hr {
+            border: double;
+        }
+        #detail_reply_hr hr {
+            border: 0.5px dotted grey;
+        }
+        .ftbutton {
+            position: absolute;
+            font-size: 16px;
+            text-align: center;
+            color: white;
+            background-color: grey;
+            border-radius: 3px;
+            padding: 5px;
+        }
+            .ftbutton:hover {
+                background-color: #333333;
+            }
+        .delete {
+            position: absolute;
+            font-size: 16px;
+            padding: 0px;
+            background-color: #fcfcfc;
+            border: 1.5px solid black;
+            border-radius: 3px;
+            width: 70%;
+            height: 30%;
+            left: 15%;
+            top: 35%;
+            z-index: 15;
+        }
+        #deletetext3 {
+            margin-top: 40px;
+            margin-left: 70px;
+        }
+        #delete_success3 {
+            width: 100px;
+            left: 70px;
+            bottom: 40px;
+        }
+        #delete_failure3 {
+            width: 100px;
+            right: 70px;
+            bottom: 40px;
+        }
+    </style>
+    <script type="text/javascript">
+        function cha_init() {
+            tousers();
+        }
+        function ToReturn() {
+            location.href = "luntan.htm";
+        }
+        function tousers() {
+            document.getElementById("users").style.display = "";
+            document.getElementById("luntans").style.display = "none";
+            //document.getElementById("replies").style.display = "none";
+            refresh_users();
+        }
+        function toluntans() {
+            document.getElementById("users").style.display = "none";
+            document.getElementById("luntans").style.display = "";
+            //document.getElementById("replies").style.display = "none";
+            refresh_luntans();
+        }
+        function toreplies() {
+            document.getElementById("users").style.display = "none";
+            document.getElementById("luntans").style.display = "none";
+            document.getElementById("replies").style.display = "";
+            refresh_replies();
+        }
+        var userResInfoArray = new Array();
+        var luntanResInfoArray = new Array();
+        var replyResInfoArray = new Array();
+        var showReplyInfo = new Array();
+        function refresh_users() {
+            allUserArray();
+            $("table").remove(".cha_table");//去掉原来论坛内容
+            var text = '<table class="cha_table" style="width:100%;"><tr>'
+                + '<th style="width:20%;">昵称</th>'
+                + '<th style="width:10%;">性别</th>'
+                + '<th style="width:20%;">手机号</th>'
+                + '<th style="width:20%;">注册时间</th>'
+                + '<th style="width:10%;">身份</th>'
+                + '<th style="width:10%;"></th>'
+                + '<th style="width:10%;"></th></tr > ';
+            for (var i = userResInfoArray.length - 1; i >= 0; i--) {
+                text = text + '<tr><td style="width:20%;">' + userResInfoArray[i].Name + '</td>'
+                    + '<td style="width:10%;">' + userResInfoArray[i].Gender + '</td>'
+                    + '<td style="width:20%;">' + userResInfoArray[i].PhoneNumber + '</td>'
+                    + '<td style="width:20%;">' + userResInfoArray[i].Time + '</td>'
+                    + '<td style="width:10%;">' + userResInfoArray[i].Identity + '</td>';
+                if (userResInfoArray[i].Identity == "用户") {
+                    text = text + '<td style="color:blue;width:10%;" onclick="ToFrozen(' + i + ')">冻结账户</td>'
+                        + '<td style="color:blue;width:10%;" onclick="ToCharge(' + i + ')">升为管理</td></tr>';
+                } else if (userResInfoArray[i].Identity == "管理员") {
+                    text = text + '<td style="color:blue;width:10%;" onclick="ToFrozen(' + i + ')">冻结账户</td>'
+                        + '<td style="color:blue;width:10%;" onclick="ToUser(' + i + ')">解除管理</td></tr>';
+                } else {
+                    text = text + '<td style="color:blue;width:10%;" onclick="ToUser(' + i + ')">解除冻结</td>'
+                        + '<td style="color:blue;width:10%;" onclick="ToCharge(' + i + ')">升为管理</td></tr>';
+                }
+                    
+            }
+            text = text + '</table>';
+            $("#users_table").append(text);
+        }
+        function refresh_luntans() {
+            allLuntanArray();
+            $("table").remove(".cha_table");//去掉原来论坛内容
+            var text = '<table class="cha_table" style="width:100%;"><tr>'
+                + '<th style="width:20%;">帖子作者</th>'
+                + '<th style="width:50%;">帖子主题</th>'
+                + '<th style="width:20%;">发表时间</th>'
+                + '<th style="width:5%;"></th><th style="width:5%;"></th></tr> ';
+            for (var i = luntanResInfoArray.length - 1; i >= 0; i--) {
+                text = text + '<tr><td style="width:20%;">' + luntanResInfoArray[i].Author + '</td>'
+                    + '<td style="width:50%;">' + luntanResInfoArray[i].Theme + '</td>'
+                    + '<td style="width:20%;">' + luntanResInfoArray[i].Time + '</td>'
+                    + '<td style="color:blue;width:5%;" onclick="reply_detail4(' + i + ')">查看</td>'
+                    + '<td style="color:blue;width:5%;" onclick="reply_delete3(' + i + ')">删除</td></tr>';
+            }
+            text = text + '</table>';
+            $("#luntans_table").append(text);
+
+        }
+        function refresh_replies() {
+            //allReplyArray();
+        }
+        function allUserArray() {
+            var urlStr = encodeURI("Handler.ashx?method=alluserrep&oper=''&" + Math.random());
+            $.ajax({
+                type: "get",
+                contentType: "application/json",
+                url: urlStr,
+                async: false,
+                success: showUserInfo
+            });
+        }
+        function showUserInfo(data) {
+            if (userResInfoArray != null) {
+                userResInfoArray = new Array();
+            }
+            userResInfoArray = eval('(' + data + ')');
+        }
+        function allLuntanArray() {
+            var urlStr = encodeURI("Handler.ashx?method=luntan&oper=''&help=是&ask=是&disc=是&oth=是&" + Math.random());
+            $.ajax({
+                type: "get",
+                contentType: "application/json",
+                url: urlStr,
+                async: false,
+                success: showLuntanInfo
+            });
+        }
+        function showLuntanInfo(data) {
+            if (luntanResInfoArray != null) {
+                luntanResInfoArray = new Array();
+            }
+            luntanResInfoArray = eval('(' + data + ')');
+        }
+        function ToFrozen(i) {
+            var identity = "冻结中";
+            var phonenumber = userResInfoArray[i].PhoneNumber;
+            var name = userResInfoArray[i].Name;
+            var registertime = userResInfoArray[i].TimeString;
+            var urlStr = encodeURI("Handler.ashx?method=updateuseride&id=" + identity + "&pn=" + phonenumber + "&na=" + name + "&ti=" + registertime + "&" + Math.random());
+            $.ajax({
+                type: "get",
+                contentType: "application/json",
+                url: urlStr,
+                async: false,
+            });
+            alert("冻结成功！");
+            refresh_users();
+        }
+        function ToUser(i) {
+            var identity = "用户";
+            var phonenumber = userResInfoArray[i].PhoneNumber;
+            var name = userResInfoArray[i].Name;
+            var registertime = userResInfoArray[i].TimeString;
+            var urlStr = encodeURI("Handler.ashx?method=updateuseride&id=" + identity + "&pn=" + phonenumber + "&na=" + name + "&ti=" + registertime + "&" + Math.random());
+            $.ajax({
+                type: "get",
+                contentType: "application/json",
+                url: urlStr,
+                async: false,
+            });
+            alert("解除成功！");
+            refresh_users();
+        }
+        function ToCharge(i) {
+            var identity = "管理员";
+            var phonenumber = userResInfoArray[i].PhoneNumber;
+            var name = userResInfoArray[i].Name;
+            var registertime = userResInfoArray[i].TimeString;
+            var urlStr = encodeURI("Handler.ashx?method=updateuseride&id=" + identity + "&pn=" + phonenumber + "&na=" + name + "&ti=" + registertime + "&" + Math.random());
+            $.ajax({
+                type: "get",
+                contentType: "application/json",
+                url: urlStr,
+                async: false,
+            });
+            alert("升级成功！");
+            refresh_users();
+        }
+        function reply_detail4(i) {
+            document.getElementById('detail').style.display = '';
+            document.getElementById('de_title').innerHTML = "<b>" + luntanResInfoArray[i].Theme + "</b>";
+            document.getElementById('de_author').innerHTML = luntanResInfoArray[i].Author;
+            document.getElementById('de_contact').innerHTML = "联系方式：" + luntanResInfoArray[i].Contact;
+            document.getElementById('de_time').innerHTML = "发表时间：" + luntanResInfoArray[i].Time;
+            document.getElementById('de_content').innerHTML = luntanResInfoArray[i].Content;
+            var uptheme = luntanResInfoArray[i].Theme;
+            var upauthor = luntanResInfoArray[i].Author;
+            var uptime = luntanResInfoArray[i].Time;
+            replyResInfoArray = new Array();
+            allReplyArray(uptheme, upauthor, uptime);
+            document.getElementById('de_reply').innerHTML = "<b>回复：</b><br/><br/>";
+            var text = "";
+            for (var j = 0; j < replyResInfoArray.length; j++) {
+                text = text + "<div><p style='display:inline;'>" + replyResInfoArray[j].ReAuthor + "：</p>"
+                    + "<p style='display:inline;float:right;line-height:0px;padding-right:15px;'>" + replyResInfoArray[j].ReTime + "</p>"
+                    + "<p style='padding-left:20px;'>" + replyResInfoArray[j].ReContent + "</p></div><div id='detail_reply_hr'><hr/></div>";
+            }
+            if (replyResInfoArray.length == 0) {
+                text = text + "暂时没有人回复哦~";
+            }
+            $("#de_reply").append(text);
+            //updateLunTanclick(luntanResInfoArray[i].Click_Number + 1, luntanResInfoArray[i].Theme, luntanResInfoArray[i].Author, luntanResInfoArray[i].Time);
+        }
+        function detailclose() {
+            document.getElementById('detail').style.display = 'none';
+        }
+        function allReplyArray(uptheme, upauthor, uptime) {
+            var urlStr = encodeURI("Handler.ashx?method=reply&uth=" + uptheme + "&ua=" + upauthor + "&uti=" + uptime + "&" + Math.random());
+            $.ajax({
+                type: "get",
+                contentType: "application/json",
+                url: urlStr,
+                async: false,
+                success: showReplyInfo4
+            });
+        }
+        function showReplyInfo4(data) {
+            if (replyResInfoArray != null) {
+                replyResInfoArray = new Array();
+            }
+            replyResInfoArray = eval('(' + data + ')');
+        }
+        var delete_i3;
+        function reply_delete3(i) {
+            delete_i3 = i;
+            document.getElementById("zhezhao").style.display = "";
+            document.getElementById("delete3").style.display = "";
+        }
+        function delete_success3() {
+            var theme = luntanResInfoArray[delete_i3].Theme;
+            var author = luntanResInfoArray[delete_i3].Author;
+            var time = luntanResInfoArray[delete_i3].Time;
+            luntanDelete3(theme, author, time);
+            luntanDeleteReply3(theme, author, time);
+            alert("删除成功！");
+            document.getElementById("zhezhao").style.display = "none";
+            document.getElementById("delete3").style.display = "none";
+            refresh_luntans();
+        }
+        function delete_failure3() {
+            document.getElementById("zhezhao").style.display = "none";
+            document.getElementById("delete3").style.display = "none";
+        }
+        function luntanDelete3(theme, author, time) {
+            var urlStr = encodeURI("Handler.ashx?method=luntandelete&th=" + theme + "&a=" + author + "&ti=" + time + "&" + Math.random());
+            $.ajax({
+                type: "get",
+                contentType: "application/json",
+                url: urlStr,
+                async: false,
+            });
+        }
+        function luntanDeleteReply3(theme, author, time) {
+            var urlStr = encodeURI("Handler.ashx?method=luntandeletereply&th=" + theme + "&a=" + author + "&ti=" + time + "&" + Math.random());
+            $.ajax({
+                type: "get",
+                contentType: "application/json",
+                url: urlStr,
+                async: false,
+            });
+        }
+    </script>
+</head>
+<body onload="cha_init()">
+    <div id="cha_title">
+        <p id="tousers" onclick="tousers()">用户信息</p>
+        <p id="toluntans" onclick="toluntans()">所有帖子</p>
+        <!--<p id="toreplies" onclick="toreplies()">所有评论</p>-->
+    </div>
+    <div id="cha_return" onclick="ToReturn()"><b>返回</b></div>
+    <div id="chargeall">
+        <div id="users" style="display:block;">
+            <div id="users_table"></div>
+        </div>
+        <div id="luntans" style="display:none;">
+            <div id="luntans_table"></div>
+        </div>
+        <!--<div id="replies" style="display:none;">
+            <div id="replies_table"></div>
+        </div>-->
+    </div>
+    <div id="detail" style="display: none;">
+        <div id="detail_close" onclick="detailclose()"></div>
+        <div style="font-size:16px;text-align:center;height:20px;">
+            <p id="de_title" style="line-height:15px;"></p>
+        </div>
+        <div id="detail_hr"><hr /></div>
+        <div style="width: 28%; height: 75%; left: 0; border-right: 1.5px solid #bbbbbb; padding: 5px;">
+            <p id="de_author" style="font-size:18px;font-weight:bold;"></p>
+            <p id="de_contact"></p>
+            <p id="de_time"></p>
+        </div>
+        <div style="position: absolute; top: 20%; width: 65%; height: 75%; right: 0; padding: 5px; overflow-y: auto;">
+            <p id="de_content"></p><hr />
+            <div id="de_reply"></div>
+        </div>
+    </div>
+    <div id="delete3" class="delete" style="display:none">
+        <div id="deletetext3"><p>是否确认删除。</p></div>
+        <div id="delete_success3" class="ftbutton" onclick="delete_success3()">确认删除</div>
+        <div id="delete_failure3" class="ftbutton" onclick="delete_failure3()">我点错了</div>
+    </div>
+    <div id="zhezhao" style="display:none"></div>
+</body>
+</html>

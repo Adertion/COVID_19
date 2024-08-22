@@ -1,0 +1,466 @@
+﻿/*对网页进行第二次修饰*/
+body {
+    font-size: 12px;
+}
+/*对整个标签,和表格 设置宽度为990像素*/
+#discuss {
+    width: 870px;
+    position: fixed;
+    z-index: 1;
+}
+
+#tb_luntan {
+    width: 868px;
+}
+    #tb_luntan thead tr th {
+        
+    }
+
+#discuss div.mt {
+    /*高度,边框,背景*/
+    height: 30px;
+    border: 1px solid #DDDDDD;
+    border-top: 2px solid #999999;
+    background: #f7f7f7;
+}
+
+#discuss-content1 {
+    width: 32%;
+    float: left;
+}
+#discuss-content2 {
+    width: 32%;
+    left: 33.5%;
+    position: absolute;
+}
+#discuss-content3 {
+    width: 32%;
+    left: 67%;
+    position: absolute;
+}
+
+.luntan_list {
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 15px;
+    background-color: #fff;
+    box-shadow: 0 0 7px rgba(0,0,0,0.25);
+}
+
+.luntan_label {
+    font-weight: bold;
+    color: #fff;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+
+/*#tb_luntan thead th {
+    font-weight: bold;
+    padding: 5px 0;
+    border-bottom: 1px solid #DDDDDD;
+    color: #666666;
+}
+
+#tb_luntan th, td {
+    text-align: center;
+}
+
+#tb_luntan th.coll, td.col1 {
+    width: 620px;
+    text-align: left;
+}
+
+#tb_luntan tbody td {
+    color: #9c9c9c;
+}
+
+#tb_luntan tbody td {
+    padding: 5px 0px;
+    border-bottom: 1px dotted #DDDDDD;
+}*/
+#discuss a {
+    text-decoration: none;
+    color: #005aa0;
+}
+
+#discuss a:hover {
+    text-decoration: underline;
+}
+
+/*给论坛内容加标签 加图标*/
+#discuss i {
+    /*左内边距 下内边距高度 背景图*/
+    padding-left: 21px;
+    padding-bottom: 5px;
+    background: url(img/c63802c9ee7e4ddec0e53e152e665ea.png) no-repeat;
+    background-size: 100%;
+}
+
+#discuss div.mt a {
+    float: left;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+}
+
+#discuss div.mt a:hover {
+    text-decoration: none;
+    color: #E4393C;
+}
+
+#discuss div.mt a.current {
+    border: 1px solid #DDDDDD;
+    border-top: 2px solid #E4393C;
+    border-bottom: 0;
+    background: #ffffff;
+    margin-top: -6px;
+    height: 35px;
+    line-height: 35px;
+    color: #E4393C;
+    font-size: 14px;
+}
+
+#fb {
+    font-size: 16px;
+    line-height: 0px;
+    color: #E4393C;
+    text-align: center;
+    border: 2px solid #DDDDDD;
+    border-radius: 20px !important;
+    padding: 5px 5px;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    background-color: #ffffff;
+    width: 50px;
+    height: 23px;
+    right: 10px;
+    bottom: 15px;
+    position: fixed;
+}
+
+#fb:hover{
+    color: #BB143C;
+    background-color: #DDDDDD;
+    border: 2px solid #CCCCCC;
+}
+
+#fabiao {
+    width: 99.2%;
+    height: 99%;
+    background-color: #ffffff;
+    border: 2px solid grey;
+    border-radius: 10px;
+    top: 0%;
+    left: 0%;
+    z-index: 2;
+    position: absolute;
+}
+
+.ftbutton {
+    position: absolute;
+    font-size: 16px;
+    text-align: center;
+    color: white;
+    background-color: grey;
+    border-radius: 3px;
+    padding: 5px;
+}
+.ftbutton:hover {
+    background-color: #333333;
+}
+#ftbuttontop {
+    width: 40px;
+    height: 20px;
+    top: 2%;
+    right: 2%;
+
+}
+#ftbuttonbottom {
+    width: 40px;
+    height: 20px;
+    bottom: 2%;
+    right: 2%;
+}
+
+#fatie{
+
+}
+
+#fttitle {
+    font-size: 20px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.yaosu {
+    width: 90%;
+    padding: 5px;
+    margin-left: 4%;
+    font-size: 14px;
+    border-bottom: 0.5px solid grey;
+}
+.yaosuinput{
+    border: 0;
+}
+.yaosuinput:focus {
+    border: 0;
+    outline: 0px;
+}
+#ftcontent {
+    border: 0.5px solid grey;
+    border-top: 0;
+    height: 300px;
+    overflow-y: auto;
+}
+#ftcontentta{
+    border: 0;
+    width: 785px !important;
+    height: 296px !important;
+}
+#ftcontentta:focus {
+    border: 0;
+    outline: 0;
+}
+
+#queren{
+    position: absolute;
+    font-size: 16px;
+    padding: 0px;
+    background-color: #fcfcfc;
+    border: 1.5px solid black;
+    border-radius: 3px;
+    width: 70%;
+    height: 30%;
+    left: 15%;
+    top: 35%;
+    z-index: 15;
+}
+#qrtext{
+    margin-top: 40px;
+    margin-left: 70px;
+}
+#qrtc {
+    width: 70px;
+    left: 70px;
+    bottom: 40px;
+}
+#wzxx {
+    width: 70px;
+    right: 70px;
+    bottom: 40px;
+}
+
+#quit {
+    position: absolute;
+    font-size: 16px;
+    padding: 0px;
+    background-color: #fcfcfc;
+    border: 1.5px solid black;
+    border-radius: 3px;
+    width: 70%;
+    height: 30%;
+    left: 15%;
+    top: 35%;
+    z-index: 15;
+}
+#quit_text {
+    margin-top: 40px;
+    margin-left: 70px;
+}
+#quit_yes {
+    width: 70px;
+    left: 70px;
+    bottom: 40px;
+}
+#quit_no {
+    width: 70px;
+    right: 70px;
+    bottom: 40px;
+}
+
+#uncontent {
+    position: absolute;
+    font-size: 16px;
+    padding: 0px;
+    background-color: #fcfcfc;
+    border: 1.5px solid black;
+    border-radius: 3px;
+    width: 40%;
+    height: 30%;
+    left: 30%;
+    top: 35%;
+    z-index: 15;
+}
+#unstyle {
+    position: absolute;
+    font-size: 16px;
+    padding: 0px;
+    background-color: #fcfcfc;
+    border: 1.5px solid black;
+    border-radius: 3px;
+    width: 40%;
+    height: 30%;
+    left: 30%;
+    top: 35%;
+    z-index: 15;
+}
+#unaddress {
+    position: absolute;
+    font-size: 16px;
+    padding: 0px;
+    background-color: #fcfcfc;
+    border: 1.5px solid black;
+    border-radius: 3px;
+    width: 40%;
+    height: 30%;
+    left: 30%;
+    top: 35%;
+    z-index: 15;
+}
+#zhezhao {
+    position: absolute;
+    background-color: black;
+    border-radius: 10px;
+    opacity: 0.3;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+#reply {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 20%;
+    left: 25%;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    z-index: 5;
+    background-color: white;
+    border: 1px solid grey;
+    box-shadow: 0 0 4px rgba(0,0,0,0.25);
+}
+
+#detail {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 25%;
+    left: 25%;
+    border-radius: 5px;
+    background-color: white;
+    border: 1.5px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);
+}
+#detail_close
+{
+    text-decoration: none;
+    position: absolute;
+    top: 2px;
+    right: 12px;
+    cursor: pointer;
+}
+#detail_close:after
+{
+    content: "✖";
+}
+#detail_hr hr {
+    border: double;
+}
+#detail_reply_hr hr{
+    border: 0.5px dotted grey;
+}
+
+.LTinitial {
+    background-color: #5F9EA0;
+    width: 180px;
+    height: 150px;
+    font-size: 30px;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    line-height: 140px;
+    top: 30%;
+}
+
+#user_part{
+    position: absolute;
+    right: 20px;
+    top: -8px;
+    font-size: 16px;
+}
+#user_part:hover{
+    font-weight: bold;
+}
+#user_detail{
+    position: absolute;
+    height: 100%;
+    top: 40px;
+    right: 0;
+    width: 10%;
+}
+
+#re_reply_success{
+    position: absolute;
+    bottom: 5%;
+    left:30%;
+}
+#re_reply_fail {
+    position: absolute;
+    bottom: 5%;
+    right: 30%;
+}
+#re_content{
+    width: 100%;
+    height: 50%;
+}
+
+#pos_img{
+    width: 18px;
+}
+
+#pos_map {
+    position: absolute;
+    width: 200px;
+    height: 160px;
+    right: 10px;
+    bottom: 10px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    background-color: white;
+}
+
+#user_show {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 12px;
+}
+#user_quit {
+    position: absolute;
+    top: 35px;
+    right: 0;
+    font-size: 12px;
+}
+#user_charge {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    font-size: 12px;
+}
